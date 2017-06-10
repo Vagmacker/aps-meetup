@@ -46,18 +46,16 @@ class ProductsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Products  $products
+     * @param  \App\Products  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Products $product)
     {
-        $products = Products::find($id);
-
-        if (! $products) {
+        if (! $product->id) {
             return response()->json(['message' => 'Record not found'], 404);
         }
 
-        return response()->json($products);
+        return response()->json($product);
     }
 
     /**
@@ -75,38 +73,34 @@ class ProductsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Products  $products
+     * @param  \App\Products  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Products $product)
     {
-        $products = Products::find($id);
-
-        if (! $products) {
+        if (! $product->id) {
             return response()->json(['message' => 'Record not found'], 404);
         }
 
-        $products->fill($request->all());
-        $products->save();
+        $product->fill($request->all());
+        $product->save();
 
-        return response()->json($products);
+        return response()->json($product);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Products  $products
+     * @param  \App\Products  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Products $product)
     {
-        $products = Products::find($id);
-
-        if (! $products) {
+        if (! $product->id) {
             return response()->json(['message' => 'Record not found'], 404);
         }
 
-        $products->delete();
+        $product->delete();
 
         return response()->json(['message' => 'Registro deletado'], 200);
     }
